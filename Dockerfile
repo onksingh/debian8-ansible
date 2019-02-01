@@ -10,6 +10,7 @@ RUN apt-get update \
         sudo \
         ca-certificates \
         software-properties-common \
+        wget \
         systemd systemd-cron sudo curl \
     && rm -rf /var/lib/apt/lists/* \
     && rm -Rf /usr/share/doc && rm -Rf /usr/share/man \
@@ -22,6 +23,14 @@ RUN apt-add-repository 'deb http://ppa.launchpad.net/ansible/ansible/ubuntu trus
     && rm -Rf /usr/share/doc && rm -Rf /usr/share/man \
     && apt-get clean \
     && touch -m -t 201701010000 /var/lib/apt/lists/
+
+RUN wget http://repo.mosquitto.org/debian/mosquitto-repo.gpg.key \
+    && apt-key add mosquitto-repo.gpg.key
+
+RUN cd /etc/apt/sources.list.d \
+    && wget http://repo.mosquitto.org/debian/mosquitto-jessie.list
+
+RUN apt-get update
 
 # Install Ansible inventory file.
 RUN echo '[local]\nlocalhost ansible_connection=local' > /etc/ansible/hosts
