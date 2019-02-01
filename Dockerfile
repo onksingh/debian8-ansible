@@ -27,10 +27,9 @@ RUN apt-add-repository 'deb http://ppa.launchpad.net/ansible/ansible/ubuntu trus
 RUN wget http://repo.mosquitto.org/debian/mosquitto-repo.gpg.key \
     && apt-key add mosquitto-repo.gpg.key
 
-RUN cd /etc/apt/sources.list.d \
-    && wget http://repo.mosquitto.org/debian/mosquitto-jessie.list
-
-RUN apt-get install apt-transport-https \
+RUN apt-get update && apt-get -y install apt-transport-https curl \
+    && cd /etc/apt/sources.list.d \
+    && wget http://repo.mosquitto.org/debian/mosquitto-jessie.list && cd \
     && apt-get update -y
 
 # Install Ansible inventory file.
