@@ -32,6 +32,8 @@ RUN apt-get update && apt-get -y install apt-transport-https curl \
     && wget http://repo.mosquitto.org/debian/mosquitto-jessie.list \
     && apt-get update -y
 
+RUN apt-get update && apt-get -y install apt-transport-https curl
+
 # Install Ansible inventory file.
 RUN echo '[local]\nlocalhost ansible_connection=local' > /etc/ansible/hosts
 
