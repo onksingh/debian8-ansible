@@ -24,10 +24,13 @@ RUN apt-add-repository 'deb http://ppa.launchpad.net/ansible/ansible/ubuntu trus
     && apt-get clean \
     && touch -m -t 201701010000 /var/lib/apt/lists/
 
-RUN wget http://repo.mosquitto.org/debian/mosquitto-repo.gpg.key \
-    && apt-key add mosquitto-repo.gpg.key
-
-RUN apt-get update && apt-get -y install apt-transport-https curl
+RUN apt-add-repository 'deb http://http.debian.net/debian jessie-backports main' \
+    && apt-get update \
+    && apt-get install -t jessie-backports openjdk-8-jdk -y \
+    && rm -rf /var/lib/apt/lists/* \
+    && rm -Rf /usr/share/doc && rm -Rf /usr/share/man \
+    && apt-get clean \
+    && touch -m -t 201701010000 /var/lib/apt/lists/
 
 # Install Ansible inventory file.
 RUN echo '[local]\nlocalhost ansible_connection=local' > /etc/ansible/hosts
