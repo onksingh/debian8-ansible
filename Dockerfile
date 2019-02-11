@@ -25,10 +25,6 @@ RUN apt-add-repository 'deb http://ppa.launchpad.net/ansible/ansible/ubuntu trus
     && apt-get clean \
     && touch -m -t 201701010000 /var/lib/apt/lists/
 
-RUN apt-add-repository 'deb http://http.debian.net/debian jessie-backports main' \
-    && apt-get update \
-    && apt-get install -t jessie-backports openjdk-8-jdk -y \
-
 # Install Ansible inventory file.
 RUN echo '[local]\nlocalhost ansible_connection=local' > /etc/ansible/hosts
 
