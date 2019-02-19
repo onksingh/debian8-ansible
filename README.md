@@ -28,3 +28,4 @@ Once you are done testing, you can stop and remove the container.
     docker stop ansible-test
     docker rm ansible-test
 
+# some update
